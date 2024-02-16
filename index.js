@@ -5,19 +5,24 @@ import fs from 'fs';
 // Prompt the user for input
 inquirer.prompt([
     {
+        type: 'input',
+        name: 'title',
+        message: "Please name the project"
+    },
+    {
       type: 'input',
       name: 'description',
-      message: "Please write the description for your project"
+      message: "Please enter a description of the project"
     },
     {
       type: 'input',
       name: 'instalation',
-      message: "Please write the installation instructions for your project"
+      message: "Please enter the project installation instructions"
     },
     {
       type: 'input',
       name: 'usage',
-      message: "Please write the usage instructions for your project"
+      message: "Please enter the project usage instructions"
     },
     {
         //TODO: add badges to readme based on answer
@@ -37,37 +42,68 @@ inquirer.prompt([
     {
         type: 'input',
         name: 'contributing',
-        message: "Please write whether contributions are welcome and how users can contribute"
+        message: "Please enter project contribution information"
     },
     {
         type: 'input',
         name: 'tests',
-        message: "Please write the testing information, with some examples of testing the project"
+        message: "Please enter project testing information"
     },
     {
         type: 'input',
         name: 'questionsGitHub',
-        message: "Please provide your Github username for sending questions"
+        message: "Please enter your Github username"
     },
     {
         type: 'input',
         name: 'questionsEmail',
-        message: "Please provide your email for sending questions"
+        message: "Please enter your email"
     },
   ])
   .then(answers => {
-    // Handle the user's answers here
-    const { description, installation, usage, license, contributing, tests, questionsGitHub, questionsEmail } = answers;
-    const htmlContent = `<html>
-    <head>
-      <title>Portfolio</title>
-      <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-      <h1 class="title">Hello, World!</h1>
-      <h2>My name is ${name}</h2>
-      <h2>My specialty is ${speciality}</h2>
-    </body>
-    </html>`;
+    // Destructure answers object
+    const { title, description, installation, usage, license, contributing, tests, questionsGitHub, questionsEmail } = answers;
 
-  })
+    // Generate README content based on user's input
+    const readmeContent = `
+# ${answers.title}
+
+## Table of Contents
+1. [Description](#description)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [License](#license)
+5. [Contributing](#contributing)
+6. [Tests](#tests)
+7. [Questions](#questions)
+
+## Description
+${answers.description}
+
+## Installation
+${answers.installation}
+
+## Usage
+${answers.usage}
+
+## License
+This project is licensed under the ${answers.license}.
+
+## Contributing
+${answers.contributing}
+
+## Tests
+${answers.tests}
+
+## Questions
+If you have any questions or concerns, please don't hesitate to reach out via [GitHub](https://github.com/${answers.questionsGitHub}) or email at ${answers.questionsEmail}.
+`;
+
+    fs.writeFile('README.md', readmeContent, err => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log('README.md file has been successfully generated!');
+    });
+});
