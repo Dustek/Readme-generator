@@ -1,7 +1,6 @@
 import inquirer from 'inquirer';
 import fs from 'fs';
 
-
 // Prompt the user for input
 inquirer.prompt([
     {
@@ -25,18 +24,14 @@ inquirer.prompt([
       message: "Please enter the project usage instructions"
     },
     {
-        //TODO: add badges to readme based on answer
-        //TODO: give custom description for each option
       type: 'list',
       name: 'license',
       message: "Choose a license for your project:",
       choices: [
-            'MIT License',
-            'GNU General Public License v3.0',
-            'Apache License 2.0',
-            'BSD 2-Clause "Simplified" License',
-            'BSD 3-Clause "New" or "Revised" License',
-            'Mozilla Public License 2.0',
+            'Creative commons 1.0',
+            'Apache 2.0',
+            'GNU GPL v3',
+            'The Hippocratic License 3.0',
         ]
     },
     {
@@ -61,12 +56,30 @@ inquirer.prompt([
     },
   ])
   .then(answers => {
-    // Destructure answers object
     const { title, description, installation, usage, license, contributing, tests, questionsGitHub, questionsEmail } = answers;
+
+    //  Determine badge based on license
+    let badgeURL;
+    switch (license) {
+        case 'Creative commons 1.0':
+            badgeURL = '[![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)';
+            break;
+        case 'Apache 2.0':
+            badgeURL = '[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)';
+            break;
+        case 'GNU GPL v3':
+            badgeURL = '[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)';
+            break;
+        case 'The Hippocratic License 3.0':
+            badgeURL = '[![License: Hippocratic 3.0](https://img.shields.io/badge/License-Hippocratic_3.0-lightgrey.svg)](https://firstdonoharm.dev)';
+            break;
+        default:
+            badgeURL = '';
+    }
 
     // Generate README content based on user's input
     const readmeContent = `
-# ${answers.title}
+# ${title} ${badgeURL}
 
 ## Table of Contents
 1. [Description](#description)
@@ -78,25 +91,25 @@ inquirer.prompt([
 7. [Questions](#questions)
 
 ## Description
-${answers.description}
+${description}
 
 ## Installation
-${answers.installation}
+${installation}
 
 ## Usage
-${answers.usage}
+${usage}
 
 ## License
-This project is licensed under the ${answers.license}.
+This project is licensed under the ${license}.
 
 ## Contributing
-${answers.contributing}
+${contributing}
 
 ## Tests
-${answers.tests}
+${tests}
 
 ## Questions
-If you have any questions or concerns, please don't hesitate to reach out via [GitHub](https://github.com/${answers.questionsGitHub}) or email at ${answers.questionsEmail}.
+If you have any questions or concerns, please don't hesitate to reach out via [GitHub](https://github.com/${questionsGitHub}) or email at ${questionsEmail}.
 `;
 
     fs.writeFile('README.md', readmeContent, err => {
