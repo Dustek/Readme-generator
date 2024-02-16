@@ -1,0 +1,22 @@
+{
+  "name": "readme-generator",
+  "version": "1.0.0",
+  "description": "A readme generator project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Readme-generator"
+  },
+  "keywords": [
+    "readme",
+    "generator"
+  ],
+  "author": "Vytras",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^9.2.14"
+  }
+}
