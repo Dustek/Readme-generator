@@ -1,5 +1,5 @@
 
-# qwe [![License: Hippocratic 3.0](https://img.shields.io/badge/License-Hippocratic_3.0-lightgrey.svg)](https://firstdonoharm.dev)
+# Readme Generator
 
 ## Table of Contents
 1. [Description](#description)
@@ -11,22 +11,22 @@
 7. [Questions](#questions)
 
 ## Description
-gdf
+The application project uses javascript code to dynamically create a README file based on user inputs. It uses node to work directly from the console, bypassing the need for a browser.
 
 ## Installation
-undefined
+Simply download files
 
 ## Usage
-asd
+Run index.js with node from console/terminal
 
 ## License
-This project is licensed under the The Hippocratic License 3.0.
+N/A
 
 ## Contributing
-asd
+This project is for learning purposes and does not need contributions
 
 ## Tests
-sd
+The project was tested on VS code, running node from powershell on PC
 
 ## Questions
-If you have any questions or concerns, please don't hesitate to reach out via [GitHub](https://github.com/sd) or email at sd.
+If you have any questions or concerns, please don't hesitate to reach out via [GitHub](https://github.com/Dustan) or email at V.venckas@gmail.com.
